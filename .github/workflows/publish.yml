@@ -47,12 +47,12 @@ jobs:
           csc_link: ${{ secrets.WINDOWS_SIGNING_PFX_BASE64 }}
           gh_token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Build Mac
-      #   if: runner.os == 'macOS'
-      #   uses: ./.github/actions/build-mac
-      #   with:
-      #     apple_id: ${{ secrets.APPLEID_USER }}
-      #     apple_id_password: ${{ secrets.APPLEID_PASSWORD }}
-      #     cert_p12: ${{ secrets.APPLE_DEVELOPER_ID_CERT_P12_BASE64 }}
-      #     cert_passphrase: ${{ secrets.APPLE_DEVELOPER_ID_CERT_PASSPHRASE }}
-      #     gh_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Mac
+        if: runner.os == 'macOS'
+        uses: ./.github/actions/build-mac
+        with:
+          apple_id: ${{ secrets.APPLEID_USER }}
+          apple_id_password: ${{ secrets.APPLEID_PASSWORD }}
+          cert_p12: ${{ secrets.APPLE_DEVELOPER_ID_CERT_P12_BASE64 }}
+          cert_passphrase: ${{ secrets.APPLE_DEVELOPER_ID_CERT_PASSPHRASE }}
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
