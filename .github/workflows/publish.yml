@@ -26,6 +26,7 @@ jobs:
         with: 
           repository: brimdata/brim
           ref: welcome-zui # This will change to main
+          fetch-depth: 0
       
       - run: git describe --tags
 
