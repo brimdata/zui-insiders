@@ -30,6 +30,9 @@ jobs:
       - name: Setup Zui
         uses: ./.github/actions/setup-zui
 
+      - name: Set Insiders Version
+        run: yarn insiders:version
+
       - name: Build Linux
         if: runner.os == 'Linux'
         uses: ./.github/actions/build-linux
@@ -53,9 +56,3 @@ jobs:
       #     cert_p12: ${{ secrets.APPLE_DEVELOPER_ID_CERT_P12_BASE64 }}
       #     cert_passphrase: ${{ secrets.APPLE_DEVELOPER_ID_CERT_PASSPHRASE }}
       #     gh_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifacts
-          path: dist/installers/
