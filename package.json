@@ -1,9 +1,8 @@
 {
-  "version": "0.31.1-0",
+  "version": "0.32.0",
   "type": "module",
   "packageManager": "yarn@3.2.1",
   "dependencies": {
     "semver": "^7.3.7"
-  },
-  "stableVersion": "0.31.0"
+  }
 }
