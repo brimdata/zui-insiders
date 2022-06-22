@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "packageManager": "yarn@3.2.1",
+  "dependencies": {
+    "semver": "^7.3.7"
+  }
+}
