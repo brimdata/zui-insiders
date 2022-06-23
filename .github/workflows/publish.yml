@@ -33,7 +33,7 @@ jobs:
           path: zui
 
       - name: Setup Zui
-        uses: ./.github/actions/setup-zui
+        uses: ./zui/.github/actions/setup-zui
         working-directory: zui
 
       # - name: Set Insiders Version
