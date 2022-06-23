@@ -28,6 +28,11 @@ jobs:
         run: yarn bump ../zui
         working-directory: insiders
 
-      - name: Git Status
-        run: git diff
+      - name: Commit Changes
         working-directory: insiders
+        run: |
+          git diff
+          git config --global user.name 'Zui Insiders Automation'
+          git config --global user.email 'support@brimdata.io'
+          git commit -am "automation: Bump version for successful release"
+          git push
