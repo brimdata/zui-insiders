@@ -29,5 +29,5 @@ jobs:
         working-directory: insiders
 
       - name: Git Status
-        run: git status
+        run: git diff
         working-directory: insiders
