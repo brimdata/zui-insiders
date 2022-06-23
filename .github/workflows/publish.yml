@@ -41,7 +41,12 @@ jobs:
         working-directory: zui-insiders
     
       - name: Get Stable Version
-        run: node zui-insiders/package-get.js package.json version          
+        id: stable
+        run: |
+          echo "::set-output name=version::$(node zui-insiders/package-get.js package.json version)"a
+      
+      - name: Get Next Version
+        run: 
 
       # - name: Build Linux
       #   if: runner.os == 'Linux'
