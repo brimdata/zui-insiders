@@ -1,9 +1,9 @@
 {
-  "version": "0.32.1-0",
+  "version": "0.30.0",
   "type": "module",
   "packageManager": "yarn@3.2.1",
   "dependencies": {
+    "fs-extra": "^10.1.0",
     "semver": "^7.3.7"
-  },
-  "stableVersion": "0.32.0"
+  }
 }
