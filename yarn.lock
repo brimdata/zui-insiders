@@ -51,6 +51,7 @@ __metadata:
   dependencies:
     fs-extra: ^10.1.0
     semver: ^7.3.7
+    typescript: next
   languageName: unknown
   linkType: soft
 
@@ -62,6 +63,26 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 2fa3e877568cd6ce769c75c211beaed1f9fce80b28338cadd9d0b6c40f2e2862bafd62c19a6cff42f3d54292b7c623277bcab8816a2b5521cf15210d43e75232
+  languageName: node
+  linkType: hard
+
+"typescript@npm:next":
+  version: 4.8.0-dev.20220623
+  resolution: "typescript@npm:4.8.0-dev.20220623"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 61e5ac285a75eae0193824c047d49993d7468af2256db2aa1b2d88572b6060ca84aa808270a03d5d880de8fadbecc7ce844edeaeb540be52cb3593fc4fc6c018
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@next#~builtin<compat/typescript>":
+  version: 4.8.0-dev.20220623
+  resolution: "typescript@patch:typescript@npm%3A4.8.0-dev.20220623#~builtin<compat/typescript>::version=4.8.0-dev.20220623&hash=7ad353"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: cb650dc05b1055193fbf685374a42a69380911dbc6584d3b9b3ae4f1b12f5c35dd1bb2ffb331d36835eb9686af8328eda8f0b19ebc6c7623e270b6e5b9c2f6b5
   languageName: node
   linkType: hard
 
