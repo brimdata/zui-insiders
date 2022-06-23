@@ -35,7 +35,6 @@ jobs:
 
       - name: Setup Zui
         uses: ./zui/.github/actions/setup-zui
-        working-directory: zui
 
       # - name: Set Insiders Version
       #   run: yarn insiders:version
