@@ -26,11 +26,11 @@ jobs:
         path: zui-insiders
     
       - name: Checkout Zui
-          uses: actions/checkout@v3
-          with: 
-            repository: brimdata/brim
-            ref: welcome-zui # This will change to main
-            path: zui
+        uses: actions/checkout@v3
+        with: 
+          repository: brimdata/brim
+          ref: welcome-zui # This will change to main
+          path: zui
 
       - name: Setup Zui
         uses: ./.github/actions/setup-zui
