@@ -37,8 +37,7 @@ jobs:
           path: zui-insiders
       
       - name: Get Stable Version
-        run: node scripts/package-get.js package.json version
-          
+        run: node zui-insiders/scripts/package-get.js package.json version          
 
       # - name: Build Linux
       #   if: runner.os == 'Linux'
