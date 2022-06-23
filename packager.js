@@ -40,19 +40,21 @@ export class InsidersPackager {
   get injectedProperties() {
     return {
       name: this.meta.name,
+      productName: this.meta.productName,
       repository: this.meta.repository,
       version: this.nextVersion
     }
   }
 
   injectAppPackageJSON() {
-    p("Injecting Props", this.injectedProperties)
+    p("Injecting app's package.json with:", this.injectedProperties)
     const json = Object.assign({}, this.appMeta, this.injectedProperties)
     const path = this.getMetaPath(this.appRoot)
     fs.writeJSONSync(path, json, { spaces: 2 })
   }
 
   saveVersion() {
+    p("Saving insiders version:", this.nextVersion)
     const json = Object.assign({}, this.meta, { version: this.nextVersion })
     const path = this.getMetaPath(this.root)
     fs.writeJSONSync(path, json, { spaces: 2 })
