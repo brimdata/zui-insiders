@@ -5,6 +5,10 @@
   "version": "0.30.0",
   "type": "module",
   "packageManager": "yarn@3.2.1",
+  "scripts": {
+    "inject": "node inject.js",
+    "bump": "node bump.js"
+  },
   "dependencies": {
     "fs-extra": "^10.1.0",
     "semver": "^7.3.7"
