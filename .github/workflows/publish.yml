@@ -13,6 +13,10 @@ jobs:
         with:
           path: insiders
 
+      - name: Setup Insiders
+        run: yarn
+        working-directory: insiders
+
       - name: Checkout Zui
         uses: actions/checkout@v3
         with: 
