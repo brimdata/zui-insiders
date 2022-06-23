@@ -21,4 +21,9 @@ jobs:
           path: zui
       
       - name: Save Most Recently Built Version
-        run: node insiders/index.js zui
+        run: yarn bump ../zui
+        working-directory: insiders
+
+      - name: Git Status
+        run: git status
+        working-directory: insiders
