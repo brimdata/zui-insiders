@@ -43,10 +43,8 @@ jobs:
       - name: Get Stable Version
         id: stable
         run: |
-          echo "::set-output name=version::$(node zui-insiders/package-get.js package.json version)"a
+          echo "::set-output name=version::$(node zui-insiders/package-get.js package.json version)"
       
-      - name: Get Next Version
-        run: 
 
       # - name: Build Linux
       #   if: runner.os == 'Linux'
