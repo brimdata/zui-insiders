@@ -2,6 +2,7 @@
   "name": "zui-insiders",
   "productName": "Zui - Insiders",
   "repository": "https://github.com/brimdata/brim-update-test",
+  "description": "Zui for early adoptors with frequent updates.",
   "version": "0.30.0",
   "type": "module",
   "packageManager": "yarn@3.2.1",
