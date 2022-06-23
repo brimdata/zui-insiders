@@ -21,23 +21,14 @@ jobs:
 
     runs-on: ${{ matrix.runner }}
     steps:
-      - name: Checkout Zui Insiders
-        uses: actions/checkout@v3
-        with:
-          path: zui-insiders
-    
       - name: Checkout Zui
         uses: actions/checkout@v3
         with: 
           repository: brimdata/brim
           ref: welcome-zui # This will change to main
-          path: zui
 
       - name: Setup Zui
-        uses: ./zui/.github/actions/setup-zui
-
-      # - name: Set Insiders Version
-      #   run: yarn insiders:version
+        uses: ./.github/actions/setup-zui
 
       # - name: Build Linux
       #   if: runner.os == 'Linux'
