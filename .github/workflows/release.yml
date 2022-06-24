@@ -1,7 +1,6 @@
-name: Publish
+name: Create New Release
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:

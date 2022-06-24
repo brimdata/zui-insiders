@@ -1,4 +1,4 @@
-import { InsidersPackager } from "./packager.js"
+import { InsidersPackager } from "./insiders-packager.js"
 
 const appDir = process.argv[2]
 if (!appDir) {
