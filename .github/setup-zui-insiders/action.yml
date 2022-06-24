@@ -1,0 +1,13 @@
+name: Setup Zui Insiders
+description: Shared steps for setting up Zui in workflows
+runs:
+  using: "composite"
+    - name: Install Node
+      uses: actions/setup-node@v2
+      with:
+        cache: yarn
+        node-version-file: .node-version
+
+    - name: Yarn Install
+      run: yarn --inline-builds
+      shell: bash
