@@ -2,6 +2,8 @@ name: Create New Release
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '5 15 * * 1-5' # Every weekday at 5:15am
 
 jobs:
   release:
