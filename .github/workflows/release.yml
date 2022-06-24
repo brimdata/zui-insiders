@@ -39,6 +39,7 @@ jobs:
 
       - name: Remove insiders
         run: rm -fr insiders
+        shell: bash
 
       - name: Disable yarn immutable installs
         run: yarn config set enableImmutableInstalls false
