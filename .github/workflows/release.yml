@@ -22,7 +22,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           cache: yarn
-          node-version-file: .node-version
 
       - name: Yarn
         run: yarn
@@ -71,10 +70,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           cache: yarn
-          node-version-file: .node-version
 
       - name: Yarn
-        run: yarn --inline-builds
+        run: yarn
         working-directory: insiders
 
       - name: Checkout Zui
