@@ -50,7 +50,7 @@ jobs:
       - name: Build Zui
         uses: ./.github/actions/build-zui
         with:
-          cmd: yarn electron-builder -c electron-builder-insiders.json
+          cmd: yarn electron-builder -c electron-builder-insiders.json --publish always
           gh_token: ${{ secrets.GITHUB_TOKEN }}
           # Windows
           csc_key_password: ${{ secrets.WINDOWS_SIGNING_PASSPHRASE }}
@@ -74,6 +74,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           cache: yarn
+          cache-dependency-path: insiders/yarn.lock
 
       - name: Yarn
         run: yarn
