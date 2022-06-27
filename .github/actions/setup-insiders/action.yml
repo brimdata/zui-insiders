@@ -16,3 +16,4 @@ runs:
     - name: Yarn
       run: yarn
       working-directory: ${{ inputs.path }}
+      shell: bash

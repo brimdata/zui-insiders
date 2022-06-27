@@ -13,22 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get.outputs.version}}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          path: insiders
 
       - name: Setup
-        uses: ./insiders/.github/actions/setup-insiders
-        with:
-          path: insiders
+        uses: ./.github/actions/setup-insiders
 
       - name: Get Version
         id: get
         run: echo "::set-output name=version::$(yarn latest)"
-        working-directory: insiders
 
   release:
     name: Build and Publish
