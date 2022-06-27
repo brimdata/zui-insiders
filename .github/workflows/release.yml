@@ -7,7 +7,7 @@ on:
     - cron: '5 15 * * 1-5' # Every weekday at 5:15am
 
 jobs:
-  next-version:
+  latest-version:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get-latest.output.version}}
@@ -34,11 +34,14 @@ jobs:
 
       - name: Get latest Zui Insiders release version
         id: get-latest
-        run: echo "::set-output name=version::$(yarn latest)"
+        run: |
+          echo '::echo::on'
+          echo '::set-output name=version::$(yarn latest)'
+          echo '::set-output name=hello::world'
         working-directory: insiders
 
   release:
-    needs: next-version
+    needs: latest-version
     strategy:
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-latest]
@@ -46,7 +49,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Test latest
-        run: echo "${{ needs }}"
+        run: echo "${{ needs.latest-version.outputs.version }}"
 
       - name: Checkout Zui
         uses: actions/checkout@v3
