@@ -14,15 +14,19 @@ jobs:
     steps:
       - name: Checkout Insiders
         uses: actions/checkout@v3
+        with:
+          path: insiders
 
       - name: Install Node
         uses: actions/setup-node@v2
         with:
           cache: yarn
+          cache-dependency-path: insiders/yarn.lock
 
       - name: Get latest Zui Insiders release version
         id: get-latest
         run: echo "::set-output name=version::$(yarn latest)"
+        working-directory: insiders
 
   release:
     needs: next-version
