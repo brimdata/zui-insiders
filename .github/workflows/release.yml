@@ -34,7 +34,7 @@ jobs:
 
       - name: Get latest Zui Insiders release version
         id: get
-        run: echo '::set-output name=version::$(yarn latest)'
+        run: echo "::set-output name=version::$(yarn latest)"
         working-directory: insiders
 
   release:
@@ -46,7 +46,9 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Test latest
-        run: echo "${{ needs.last_version.outputs.version }}"
+        run: |
+          echo "${{ toJSON(needs) }}"
+          echo "${{ needs.last_version.outputs.version }}"
 
       - name: Checkout Zui
         uses: actions/checkout@v3
