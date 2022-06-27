@@ -6,7 +6,21 @@ on:
     - cron: '5 15 * * 1-5' # Every weekday at 5:15am
 
 jobs:
+  next-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-latest.output.version}}
+
+    steps:
+      - name: Checkout Insiders
+        uses: actions/checkout@v3
+
+      - name: Get latest Zui Insiders release version
+        id: get-latest
+        run: echo "::set-output name=version::$(yarn latest)"
+
   release:
+    needs: next-version
     strategy:
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-latest]
@@ -37,6 +51,8 @@ jobs:
       - name: Inject package.json
         run: yarn inject ../
         working-directory: insiders
+        env:
+          LATEST_INSIDERS_VERSION: ${{ needs.next-version.outputs.version }}
 
       - name: Remove insiders
         run: rm -fr insiders
@@ -61,42 +77,3 @@ jobs:
           apple_id_password: ${{ secrets.APPLEID_PASSWORD }}
           cert_p12: ${{ secrets.APPLE_DEVELOPER_ID_CERT_P12_BASE64 }}
           cert_passphrase: ${{ secrets.APPLE_DEVELOPER_ID_CERT_PASSPHRASE }}
-
-  bump:
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Insiders
-        uses: actions/checkout@v3
-        with:
-          path: insiders
-      
-      - name: Install Node
-        uses: actions/setup-node@v2
-        with:
-          cache: yarn
-          cache-dependency-path: insiders/yarn.lock
-
-      - name: Yarn
-        run: yarn
-        working-directory: insiders
-
-      - name: Checkout Zui
-        uses: actions/checkout@v3
-        with: 
-          repository: brimdata/brim
-          ref: welcome-zui # This will change to main
-          path: zui
-      
-      - name: Save Most Recently Built Version
-        run: yarn bump ../zui
-        working-directory: insiders
-
-      - name: Commit Changes
-        working-directory: insiders
-        run: |
-          git diff
-          git config --global user.name 'Zui Insiders Automation'
-          git config --global user.email 'support@brimdata.io'
-          git commit -am "automation: Bump version for successful release"
-          git push

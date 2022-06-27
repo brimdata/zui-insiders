@@ -8,9 +8,11 @@
   "packageManager": "yarn@3.2.1",
   "scripts": {
     "inject": "node inject.js",
-    "bump": "node bump.js"
+    "bump": "node bump.js",
+    "latest": "node latest.js"
   },
   "dependencies": {
+    "@octokit/rest": "^18.12.0",
     "fs-extra": "^10.1.0",
     "semver": "^7.3.7"
   },

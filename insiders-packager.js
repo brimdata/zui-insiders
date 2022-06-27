@@ -14,7 +14,9 @@ export class InsidersPackager {
   }
 
   get lastVersion() {
-    return this.meta.version
+    const v = process.env["LATEST_INSIDERS_VERSION"]
+    if (semver.valid(v)) return v
+    else throw new Error("Please set LATEST_INSIDERS_VERSION in an env variable")
   }
 
   get stableVersion() {
