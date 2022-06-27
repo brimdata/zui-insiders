@@ -1,3 +1,5 @@
+![icon](https://user-images.githubusercontent.com/3460638/176045530-e4460f1e-d1f6-49b3-b769-84845f5ced28.png)
+
 # Zui Insiders
 
 A stand-alone app for early adopters to try out the latest features and fixes coming to Zui. 
