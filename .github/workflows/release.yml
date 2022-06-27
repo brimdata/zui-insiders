@@ -37,61 +37,64 @@ jobs:
         run: echo "::set-output name=version::$(yarn latest)"
         working-directory: insiders
 
-  # release:
-  #   needs: next-version
-  #   strategy:
-  #     matrix:
-  #       platform: [windows-latest, macos-latest, ubuntu-latest]
+  release:
+    needs: next-version
+    strategy:
+      matrix:
+        platform: [windows-latest, macos-latest, ubuntu-latest]
 
-  #   runs-on: ${{ matrix.platform }}
-  #   steps:
-  #     - name: Checkout Zui
-  #       uses: actions/checkout@v3
-  #       with:
-  #         repository: brimdata/brim
-  #         ref: welcome-zui # Change to main later
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Test latest
+        run: echo "${{ needs.next-version.outputs.version }}"
 
-  #     - name: Checkout Insiders
-  #       uses: actions/checkout@v3
-  #       with:
-  #         path: insiders
+      - name: Checkout Zui
+        uses: actions/checkout@v3
+        with:
+          repository: brimdata/brim
+          ref: welcome-zui # Change to main later
+
+      - name: Checkout Insiders
+        uses: actions/checkout@v3
+        with:
+          path: insiders
       
-  #     - name: Install Node
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         cache: yarn
-  #         cache-dependency-path: insiders/yarn.lock
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          cache: yarn
+          cache-dependency-path: insiders/yarn.lock
 
-  #     - name: Yarn
-  #       run: yarn
-  #       working-directory: insiders
+      - name: Yarn
+        run: yarn
+        working-directory: insiders
 
-  #     - name: Inject package.json
-  #       run: yarn inject ../
-  #       working-directory: insiders
-  #       env:
-  #         LATEST_INSIDERS_VERSION: ${{ needs.next-version.outputs.version }}
+      - name: Inject package.json
+        run: yarn inject ../
+        working-directory: insiders
+        env:
+          LATEST_INSIDERS_VERSION: ${{ needs.next-version.outputs.version }}
 
-  #     - name: Remove insiders
-  #       run: rm -fr insiders
-  #       shell: bash
+      - name: Remove insiders
+        run: rm -fr insiders
+        shell: bash
 
-  #     - name: Disable yarn immutable installs
-  #       run: yarn config set enableImmutableInstalls false
+      - name: Disable yarn immutable installs
+        run: yarn config set enableImmutableInstalls false
 
-  #     - name: Setup Zui
-  #       uses: ./.github/actions/setup-zui
+      - name: Setup Zui
+        uses: ./.github/actions/setup-zui
 
-  #     - name: Build Zui
-  #       uses: ./.github/actions/build-zui
-  #       with:
-  #         cmd: yarn electron-builder -c electron-builder-insiders.json --publish always
-  #         gh_token: ${{ secrets.GITHUB_TOKEN }}
-  #         # Windows
-  #         csc_key_password: ${{ secrets.WINDOWS_SIGNING_PASSPHRASE }}
-  #         csc_link: ${{ secrets.WINDOWS_SIGNING_PFX_BASE64 }}
-  #         # Mac
-  #         apple_id: ${{ secrets.APPLEID_USER }}
-  #         apple_id_password: ${{ secrets.APPLEID_PASSWORD }}
-  #         cert_p12: ${{ secrets.APPLE_DEVELOPER_ID_CERT_P12_BASE64 }}
-  #         cert_passphrase: ${{ secrets.APPLE_DEVELOPER_ID_CERT_PASSPHRASE }}
+      - name: Build Zui
+        uses: ./.github/actions/build-zui
+        with:
+          cmd: yarn electron-builder -c electron-builder-insiders.json --publish always
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          # Windows
+          csc_key_password: ${{ secrets.WINDOWS_SIGNING_PASSPHRASE }}
+          csc_link: ${{ secrets.WINDOWS_SIGNING_PFX_BASE64 }}
+          # Mac
+          apple_id: ${{ secrets.APPLEID_USER }}
+          apple_id_password: ${{ secrets.APPLEID_PASSWORD }}
+          cert_p12: ${{ secrets.APPLE_DEVELOPER_ID_CERT_P12_BASE64 }}
+          cert_passphrase: ${{ secrets.APPLE_DEVELOPER_ID_CERT_PASSPHRASE }}
