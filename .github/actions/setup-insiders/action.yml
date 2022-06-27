@@ -11,7 +11,7 @@ runs:
       uses: actions/setup-node@v2
       with:
         cache: yarn
-        cache-dependency-path: ${{ ${{ inputs.path }}/yarn.lock
+        cache-dependency-path: ${{ inputs.path }}/yarn.lock
 
     - name: Yarn
       run: yarn

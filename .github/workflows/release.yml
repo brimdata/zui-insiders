@@ -12,7 +12,7 @@ jobs:
     name: Get Latest Release Version
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.get.outputs.version}}
+      version: ${{ steps.get.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
