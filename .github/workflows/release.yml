@@ -1,5 +1,6 @@
 name: Create New Release
 
+
 on:
   workflow_dispatch:
   push:
@@ -7,49 +8,37 @@ on:
     - cron: '5 15 * * 1-5' # Every weekday at 5:15am
 
 jobs:
-  last_version:
+  latest:
+    name: Get Latest Release Version
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get.outputs.version}}
 
     steps:
-      - name: Checkout Insiders
+      - name: Checkout
         uses: actions/checkout@v3
         with:
           path: insiders
-      
-      - name: Install Node
-        uses: actions/setup-node@v2
+
+      - name: Setup
+        uses: ./.github/actions/setup-insiders
         with:
-          cache: yarn
-          cache-dependency-path: insiders/yarn.lock
+          path: insiders
 
-      - name: Yarn
-        run: yarn
-        working-directory: insiders
-
-      - name: Test Latest version
-        run: yarn latest
-        working-directory: insiders
-
-      - name: Get latest Zui Insiders release version
+      - name: Get Version
         id: get
         run: echo "::set-output name=version::$(yarn latest)"
         working-directory: insiders
 
   release:
-    needs: last_version
+    name: Build and Publish
+    needs: latest
     strategy:
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-latest]
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - name: Test latest
-        run: |
-          echo "${{ toJSON(needs) }}"
-          echo "${{ needs.last_version.outputs.version }}"
-
       - name: Checkout Zui
         uses: actions/checkout@v3
         with:
@@ -61,21 +50,16 @@ jobs:
         with:
           path: insiders
       
-      - name: Install Node
-        uses: actions/setup-node@v2
+      - name: Setup Insiders
+        uses: ./.github/actions/setup-insiders
         with:
-          cache: yarn
-          cache-dependency-path: insiders/yarn.lock
-
-      - name: Yarn
-        run: yarn
-        working-directory: insiders
+          path: insiders
 
       - name: Inject package.json
         run: yarn inject ../
         working-directory: insiders
         env:
-          LATEST_INSIDERS_VERSION: ${{ needs.last_version.outputs.version }}
+          LATEST_INSIDERS_VERSION: ${{ needs.latest.outputs.version }}
 
       - name: Remove insiders
         run: rm -fr insiders
