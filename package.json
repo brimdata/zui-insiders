@@ -9,7 +9,8 @@
   "scripts": {
     "inject": "node inject.js",
     "bump": "node bump.js",
-    "latest": "node latest.js"
+    "latest": "node latest.js",
+    "release-notes": "node release-notes.js"
   },
   "dependencies": {
     "@octokit/rest": "^18.12.0",

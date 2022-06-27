@@ -53,6 +53,10 @@ jobs:
         working-directory: insiders
         env:
           LATEST_INSIDERS_VERSION: ${{ needs.latest.outputs.version }}
+      
+      - name: Write Release Notes
+        run: yarn release-notes ../build/release-notes.md
+        working-directory: insiders
 
       - name: Remove insiders
         run: rm -fr insiders
