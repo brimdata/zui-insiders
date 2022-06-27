@@ -7,10 +7,10 @@ on:
     - cron: '5 15 * * 1-5' # Every weekday at 5:15am
 
 jobs:
-  latest-version:
+  last_version:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.get-latest.output.version}}
+      version: ${{ steps.get.output.version}}
 
     steps:
       - name: Checkout Insiders
@@ -33,15 +33,12 @@ jobs:
         working-directory: insiders
 
       - name: Get latest Zui Insiders release version
-        id: get-latest
-        run: |
-          echo '::echo::on'
-          echo '::set-output name=version::$(yarn latest)'
-          echo '::set-output name=hello::world'
+        id: get
+        run: echo '::set-output name=version::$(yarn latest)'
         working-directory: insiders
 
   release:
-    needs: latest-version
+    needs: last_version
     strategy:
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-latest]
@@ -49,7 +46,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Test latest
-        run: echo "${{ needs.latest-version.outputs.version }}"
+        run: echo "${{ needs.last_version.outputs.version }}"
 
       - name: Checkout Zui
         uses: actions/checkout@v3
@@ -76,7 +73,7 @@ jobs:
         run: yarn inject ../
         working-directory: insiders
         env:
-          LATEST_INSIDERS_VERSION: ${{ needs.next-version.outputs.version }}
+          LATEST_INSIDERS_VERSION: ${{ needs.last_version.outputs.version }}
 
       - name: Remove insiders
         run: rm -fr insiders
