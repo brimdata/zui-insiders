@@ -21,7 +21,7 @@ jobs:
           path: insiders
 
       - name: Setup
-        uses: ./.github/actions/setup-insiders
+        uses: ./insiders/.github/actions/setup-insiders
         with:
           path: insiders
 
@@ -51,7 +51,7 @@ jobs:
           path: insiders
       
       - name: Setup Insiders
-        uses: ./.github/actions/setup-insiders
+        uses: ./insiders/.github/actions/setup-insiders
         with:
           path: insiders
 
