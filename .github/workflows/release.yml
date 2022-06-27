@@ -46,7 +46,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Test latest
-        run: echo "${{ needs.next-version.outputs.version }}"
+        run: echo "${{ needs }}"
 
       - name: Checkout Zui
         uses: actions/checkout@v3
