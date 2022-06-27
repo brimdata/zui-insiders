@@ -1,32 +1,32 @@
 # Zui Insiders
 
-The purpose of this repository is to build a nightly version of the app based on the main branch of the zui repo. 
+A stand-alone app for early adopters to try out the latest features and fixes coming to Zui. 
 
-### What is Zui Insiders?
+This repository contains scripts responsible for building & publishing a new version each weeknight or manually.
 
-A stand-alone app for early adopters to get the latest features that are coming to Zui. Here is a summary of it's features:
+### Features
 
-* Can run side-by-side with Zui stable
-* Has it's own data directory
-* Receives frequent updates built off the `main` branch of the `brimdata/zui` repo
+Zui Insiders has the following features:
+
+* Its own icon
+* Its own data directory
+* Runs side-by-side with Zui stable
+* Builds nightly off `brimdata/zui#main`
 * Subscribes to this repository's releases for automatic updates
 * May occasionally break
 
 ### How It Works
 
+Everything happens in the Github Actions workflow named `release.yml`. It runs the following steps:
 
-
-This happens in the Github Action workflow named `release.yml`. It runs the following steps:
-
-1. Checkout the `main` branch of `brimdata/zui`
-2. Inject the package.json file with properties for Zui Insiders
+1. Checkout  `brimdata/zui#main` 
+2. Inject the `package.json` file with properties for Zui Insiders
 3. Build the app
-4. Create a new release with the build artifacts
-5. Bump the version of this repo's package.json
+4. Publish a new release with the build artifacts
 
 ### Injecting package.json
 
-We use [Electron Builder](https://www.electron.build/) to build the app. It will look at the app's package.json to set things like the name, version, and repository. One of the scripts in this repo is called "inject".
+We use [Electron Builder](https://www.electron.build/) to build the app. When building, it references package.json to set things like name, version, and repository. One of the scripts in this repo is called "inject".
 
 ````
 yarn inject <path_to_app_dir>
@@ -83,11 +83,22 @@ We also run electron-builder with a special configuration file that overrides th
 yarn electron-builder -c electron-builder-insiders.json
 ```
 
-And that's how it's built.
+And that's how it works.
 
 ### Versioning
 
-The algorithm for choosing the version of each release is as follows.
+How do we determine what the next version of Insiders should be?
+
+We use the latest Insiders release tag version and the latest Zui version to determine what the next Insider's version should be. 
+
+Running `yarn latest` in this repo will make an HTTP request to Github's API and print the version tag of the latest release.
+
+```
+brimdata/zui-insiders % yarn latest
+0.30.1-4
+```
+
+The algorithm for choosing the version of each release is:
 
 ```
 if stableVersion > lastInsidersVersion
@@ -96,11 +107,12 @@ else
 	increment the lastInsidersVersion by one "prerelease"
 ```
 
-Incrementing by one "prerelease" means first bumping the patch number, then adding a numerical suffix that increments by one each time.
+Incrementing by a "prerelease" means first bumping the patch number, then adding a numerical suffix that increments by one each time.
 
 ```js
 semver.inc(version, "prerelease")
-/* version     returns
+/* 
+   version     returns
    0.30.0      0.30.1-0
    0.30.1-0    0.30.1-1
    0.30.1-1    0.30.1-2
@@ -108,8 +120,8 @@ semver.inc(version, "prerelease")
 */
 ```
 
-It's important to rember that in the semver precedence, version `0.1.0` is greater than version `0.1.0-0`.
+> It's important to know that the semver specification says  `0.1.0` is higher than `0.1.0-0`. That's why the patch version gets bumped initially.
 
 
 
-Based on VSCode's Insiders.
+This release process is very much based on [VSCode Insiders](https://code.visualstudio.com/insiders/).
