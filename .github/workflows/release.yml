@@ -30,6 +30,7 @@ jobs:
 
       - name: Test Latest version
         run: yarn latest
+        working-directory: insiders
 
       - name: Get latest Zui Insiders release version
         id: get-latest
