@@ -1,7 +1,7 @@
 {
   "name": "zui-insiders",
   "productName": "Zui - Insiders",
-  "repository": "https://github.com/brimdata/brim-update-test",
+  "repository": "https://github.com/brimdata/zui-insiders",
   "description": "Zui for early adoptors with frequent updates.",
   "version": "0.30.1-1",
   "type": "module",
