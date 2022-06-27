@@ -10,7 +10,7 @@ jobs:
   last_version:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.get.output.version}}
+      version: ${{ steps.get.outputs.version}}
 
     steps:
       - name: Checkout Insiders
