@@ -8,9 +8,9 @@ const p = (...args) => console.log("‣", ...args)
 
 export class InsidersPackager {
   /**
-   * 
-   * @param {string} appRoot 
-   * @param {string} lastVersion 
+   *
+   * @param {string} appRoot
+   * @param {string} lastVersion
    */
   constructor(appRoot, lastVersion) {
     this.root = path.dirname(url.fileURLToPath(import.meta.url))
