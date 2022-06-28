@@ -1,4 +1,5 @@
-![icon](https://user-images.githubusercontent.com/3460638/176045530-e4460f1e-d1f6-49b3-b769-84845f5ced28.png)
+
+![Zui Insiders Icon](https://user-images.githubusercontent.com/3460638/176261578-f1c44c54-d97c-424e-92ea-b4f45ab70756.png)
 
 # Zui Insiders
 
