@@ -2,21 +2,23 @@ import path from "node:path"
 import url from "node:url"
 import fs from "fs-extra"
 import semver from "semver"
+import { version } from "node:os"
 
 const p = (...args) => console.log("‣", ...args)
 
 export class InsidersPackager {
-  constructor(appRoot) {
+  /**
+   * 
+   * @param {string} appRoot 
+   * @param {string} lastVersion 
+   */
+  constructor(appRoot, lastVersion) {
     this.root = path.dirname(url.fileURLToPath(import.meta.url))
     this.meta = this.getMeta(this.root)
     this.appRoot = path.join(process.cwd(), appRoot)
     this.appMeta = this.getMeta(this.appRoot)
-  }
-
-  get lastVersion() {
-    const v = process.env["LATEST_INSIDERS_VERSION"]
-    if (semver.valid(v)) return v
-    else throw new Error("Please set LATEST_INSIDERS_VERSION in an env variable")
+    this.lastVersion = semver.valid(lastVersion) && lastVersion
+    if (!semver.valid(this.lastVersion)) throw new Error("Invalid last version")
   }
 
   get stableVersion() {
