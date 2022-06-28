@@ -45,6 +45,7 @@ export class InsidersPackager {
       productName: this.meta.productName,
       repository: this.meta.repository,
       description: this.meta.description,
+      lake: this.meta.lake,
       version: this.nextVersion
     }
   }

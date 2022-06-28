@@ -6,6 +6,9 @@
   "version": "0.30.1-2",
   "type": "module",
   "packageManager": "yarn@3.2.1",
+  "lake": {
+    "port": 9988
+  },
   "scripts": {
     "inject": "node inject.js",
     "bump": "node bump.js",
