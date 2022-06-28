@@ -6,7 +6,7 @@ A stand-alone app for early adopters to try out the latest features and fixes co
 
 This repository contains scripts responsible for building & publishing a new version each weeknight or manually.
 
-### Features
+## Features
 
 Zui Insiders has the following features:
 
@@ -17,7 +17,7 @@ Zui Insiders has the following features:
 * Subscribes to this repository's releases for automatic updates
 * May occasionally break
 
-### How It Works
+## How It Works
 
 Everything happens in the Github Actions workflow named `release.yml`. It runs the following steps:
 
@@ -26,26 +26,29 @@ Everything happens in the Github Actions workflow named `release.yml`. It runs t
 3. Build the app
 4. Publish a new release with the build artifacts
 
-### Injecting package.json
+## Injecting package.json
 
 We use [Electron Builder](https://www.electron.build/) to build the app. When building, it references package.json to set things like name, version, and repository. One of the scripts in this repo is called "inject".
 
 ````
-yarn inject <path_to_app_dir>
+yarn inject <path_to_app_dir> <last_insiders_version>
 ````
 
 It will set the app's package.json to the correct values for the next Insider's release.
 
+1. 
+
 Example:
 
-```
-brimdata/zui-insiders % yarn inject ../zui
-‣ Injecting app's package.json with: {
+```js
+brimdata/zui-insiders % yarn inject ../zui 0.30.1-15
+‣ Injecting apps package.json with: {
   name: 'zui-insiders',
   productName: 'Zui - Insiders',
   repository: 'https://github.com/brimdata/zui-insiders',
   description: 'Zui for early adoptors with frequent updates.',
-  version: '0.30.1-2'
+  lake: { port: 9988 },
+  version: '0.30.1-16'
 }
 ```
 
@@ -56,12 +59,17 @@ brimdata/zui
 brimdata/zui-insiders
 ```
 
-When I ran yarn inject and passed the path the app directory, it created this diff in the zui repo.
+I ran `yarn inject` and passed two arguments:
+
+1. the path the app directory
+2. the last version of Zui Insiders
+
+It created this diff in the zui repo.
 
 ```diff
 --- a/package.json
 +++ b/package.json
-@@ -1,11 +1,11 @@
+@@ -1,18 +1,18 @@
  {
 -  "name": "zui",
 +  "name": "zui-insiders",
@@ -73,11 +81,14 @@ When I ran yarn inject and passed the path the app directory, it created this di
 +  "repository": "https://github.com/brimdata/zui-insiders",
 -  "version": "0.30.0",
 +  "version": "0.30.1-0",
-   "main": "dist/js/electron/main.js",
+   "lake": {
+-    "port": 9867
++    "port": 9988
+   },
    ...
 ```
 
-Now the app will be built with desired properties. 
+When this happens on the CI servers, the app will be built with our desired properties.
 
 We also run electron-builder with a special configuration file that overrides the icons and the release strategy. This file lives in the main `zui`repo.
 
@@ -87,7 +98,7 @@ yarn electron-builder -c electron-builder-insiders.json
 
 And that's how it works.
 
-### Versioning
+## Versioning
 
 How do we determine what the next version of Insiders should be?
 
@@ -125,5 +136,7 @@ semver.inc(version, "prerelease")
 > It's important to know that the semver specification says  `0.1.0` is higher than `0.1.0-0`. That's why the patch version gets bumped initially.
 
 
+
+**References**
 
 This release process is very much based on [VSCode Insiders](https://code.visualstudio.com/insiders/).
