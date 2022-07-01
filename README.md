@@ -18,6 +18,15 @@ Zui Insiders has the following features:
 * Subscribes to this repository's releases for automatic updates
 * May occasionally break
 
+## Download
+
+Go to the [latest release](https://github.com/brimdata/zui-insiders/releases) and download the file for your platform.
+
+* .dmg for macOS
+* .exe for Windows
+* .rpm or .deb for Linux
+
+
 ## How It Works
 
 Everything happens in the Github Actions workflow named `release.yml`. It runs the following steps:
