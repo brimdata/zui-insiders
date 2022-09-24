@@ -1,0 +1,77 @@
+name: Create Dev Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "build/**"
+
+jobs:
+  latest:
+    name: Get Latest Release Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup
+        uses: ./.github/actions/setup-insiders
+
+      - name: Get Version
+        id: get
+        run: echo "::set-output name=version::$(yarn latest)"
+
+  release:
+    name: Build and Publish
+    needs: latest
+    strategy:
+      matrix:
+        platform: [windows-latest, macos-latest, ubuntu-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout Zui
+        uses: actions/checkout@v3
+        with:
+          repository: brimdata/brim
+          ref: main
+
+      - name: Checkout Insiders
+        uses: actions/checkout@v3
+        with:
+          path: insiders
+      
+      - name: Setup Insiders
+        uses: ./insiders/.github/actions/setup-insiders
+        with:
+          path: insiders
+
+      - name: Inject package.json
+        run: yarn inject ../ ${{ needs.latest.outputs.version }}
+        working-directory: insiders
+      
+      - name: Write Release Notes
+        run: yarn release-notes ../build/release-notes.md
+        working-directory: insiders
+
+      - name: Disable yarn immutable installs
+        run: yarn config set enableImmutableInstalls false
+
+      - name: Setup Zui
+        uses: ./.github/actions/setup-zui
+
+      - name: Build Zui
+        uses: ./.github/actions/build-zui
+        with:
+          cmd: yarn electron-builder -c electron-builder-insiders.json --publish never
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          # Windows
+          csc_key_password: ${{ secrets.WINDOWS_SIGNING_PASSPHRASE }}
+          csc_link: ${{ secrets.WINDOWS_SIGNING_PFX_BASE64 }}
+          # Mac
+          apple_id: ${{ secrets.APPLEID_USER }}
+          apple_id_password: ${{ secrets.APPLEID_PASSWORD }}
+          cert_p12: ${{ secrets.APPLE_DEVELOPER_ID_CERT_P12_BASE64 }}
+          cert_passphrase: ${{ secrets.APPLE_DEVELOPER_ID_CERT_PASSPHRASE }}
