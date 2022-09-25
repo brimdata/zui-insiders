@@ -2,6 +2,11 @@ name: Create Dev Build
 
 on:
   workflow_dispatch:
+    inputs:
+      zui-branch:
+        description: 'Zui branch on which to base this Zui Insiders build'
+        default: 'main'
+        required: false
   push:
     branches:
       - "build/**"
@@ -36,7 +41,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: brimdata/brim
-          ref: main
+          ref: ${{ github.event.inputs.zui-branch }}
 
       - name: Checkout Insiders
         uses: actions/checkout@v3
