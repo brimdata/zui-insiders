@@ -26,7 +26,7 @@ jobs:
 
       - name: Get Version
         id: get
-        run: echo "::set-output name=version::$(yarn latest)"
+        run: echo "::set-output name=version::0.30.1-81"
 
   release:
     name: Build and Publish
