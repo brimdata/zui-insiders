@@ -80,3 +80,9 @@ jobs:
           apple_id_password: ${{ secrets.APPLEID_PASSWORD }}
           cert_p12: ${{ secrets.APPLE_DEVELOPER_ID_CERT_P12_BASE64 }}
           cert_passphrase: ${{ secrets.APPLE_DEVELOPER_ID_CERT_PASSPHRASE }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: zui-insiders-installers
+          path: dist/installers
