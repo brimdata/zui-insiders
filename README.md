@@ -7,6 +7,8 @@ A stand-alone app for early adopters to try out the latest features and fixes co
 
 This repository contains scripts responsible for building & publishing a new version each weeknight or manually.
 
+[![What is Zui Insiders?](what-is-zui-insiders.png?raw=true)](https://www.youtube.com/watch?v=I2y663n8d2A)
+
 ## Features
 
 Zui Insiders has the following features:
