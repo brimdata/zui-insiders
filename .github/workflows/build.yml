@@ -61,9 +61,6 @@ jobs:
         run: yarn release-notes ../build/release-notes.md
         working-directory: insiders
 
-      - name: Disable yarn immutable installs
-        run: yarn config set enableImmutableInstalls false
-
       - name: Setup Zui
         uses: ./.github/actions/setup-zui
 
