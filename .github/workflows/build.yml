@@ -71,7 +71,7 @@ jobs:
         run: |
           echo "Here is package.json"
           cat ./package.json
-          echo
+          echo "===================="
           echo "Here is yarn.lock"
           cat ./yarn.lock
 
