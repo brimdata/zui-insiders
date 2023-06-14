@@ -9,9 +9,6 @@ runs:
   steps:
     - name: Install Node
       uses: actions/setup-node@v3
-      with:
-        cache: yarn
-        cache-dependency-path: ${{ inputs.path }}/yarn.lock
 
     - name: Yarn
       run: yarn
