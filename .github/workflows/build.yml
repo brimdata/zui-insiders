@@ -67,6 +67,14 @@ jobs:
       - name: Setup Zui
         uses: ./.github/actions/setup-zui
 
+      - name: Show contents of package.json and yarn.lock
+        run: |
+          echo "Here is package.json"
+          cat ./package.json
+          echo
+          echo "Here is yarn.lock"
+          cat ./yarn.lock
+
       - name: Build Zui
         uses: ./.github/actions/build-zui
         with:
