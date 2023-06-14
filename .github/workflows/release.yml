@@ -34,7 +34,7 @@ jobs:
       - name: Checkout Zui
         uses: actions/checkout@v3
         with:
-          repository: brimdata/brim
+          repository: brimdata/zui
           ref: main
 
       - name: Checkout Insiders
