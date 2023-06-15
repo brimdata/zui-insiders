@@ -40,7 +40,7 @@ jobs:
       - name: Checkout Zui
         uses: actions/checkout@v3
         with:
-          repository: brimdata/brim
+          repository: brimdata/zui
           ref: ${{ github.event.inputs.zui-branch }}
 
       - name: Checkout Insiders
