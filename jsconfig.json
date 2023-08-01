@@ -1,7 +1,0 @@
-{
-    "compilerOptions": {
-      "module": "nodenext",
-      "target": "ES2022",
-      "checkJs": true
-    }
-  }
